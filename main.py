@@ -1,7 +1,7 @@
 from db_connection import DbConnect
 
-my_connection = DbConnect.get_db_connect('connection.txt')
-my_connection.connect_to_db()
-answer = my_connection.query(DbConnect.open_table('base_data.sql'))
+connection = DbConnect.get_db_connect('connection.txt')
+connection.open_data_table("base_data.sql")
+answer = connection.connect_to_db()
 print(answer)
 

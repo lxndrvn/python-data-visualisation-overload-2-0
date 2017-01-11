@@ -1,14 +1,14 @@
 import psycopg2
 
-class DbConnect():
+class DbConnect:
     def __init__(self, db_name, username, host_name, password):
         self.db_name = db_name
         self.username = username
         self.host_name = host_name
         self.password = password
-        self.conn_str = "dbname='" + self.db_name + "' user='" + self.username + "' host='localhost' password='"+ self.password +"'"
+        self.conn_str = "dbname='" + self.db_name + "' user='" + self.username + "' host='localhost' password='" + self.password + "'"
         self.connection = None
-    
+
     @staticmethod
     def get_db_connect(file_name):
             with open(file_name, "r") as f:
@@ -19,6 +19,11 @@ class DbConnect():
                 password = data_line[3].replace("\n", "").split(":",1)[1]
                 db_connect = DbConnect(db_name, username, host_name, password)
                 return db_connect
+
+    @staticmethod
+    def open_data_table(file_name):
+        with open(file_name, "r") as f:
+             return f.read().replace("\n", "")
 
     def connect_to_db(self):
         try:
@@ -33,9 +38,3 @@ class DbConnect():
         cursor = self.connection.cursor()
         cursor.execute(query_str)
         return cursor.fetchall()
-
-    @staticmethod
-    def open_table(file_name):
-        with open(file_name, "r") as f:
-             return f.read().replace("\n", "")
-    
