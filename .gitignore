@@ -102,4 +102,4 @@ ENV/
 # Sample image
 sample-out.png
 
-connection.txt
+connection.csv

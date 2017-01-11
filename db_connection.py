@@ -1,25 +1,28 @@
 import psycopg2
 
-def DbConnect:
+def DbConnect():
     def __init__(self, db_name, username, host_name, password):
         self.db_name = db_name
         self.username = username
         self.host_name = host_name
         self.password = password
-        
+    
+    @staticmethod
+    def open_file(file_name):
+            with open(file_name, "r") as f:
+                data_line = f.readlines()
+                return data_line[0].replace('\n', '')
+
     def connect_to_db(self):
-        connect_details = psycopg2.connect(
-            "dbname='" + self.db_name + "' user='" + self.username + "' host='localhost' password='"+ self.password +'")
         try:
-            self.connect = psycopg2.connect(connect_details)
-            self.conn.autocommit = True
+            conn_str = DbConnect.open_file('connection.csv')
+            conn = psycopg2.connect(conn_str)
+            conn.autocommit = True
             print("Connection successful!")
+            cursor = conn.cursor()
+            cursor.execute("""SELECT name FROM base_data WHERE name='Y-find'""")
+            return cursor.fetchall()
+        
         except Exception as e:
             print("Something went wrong. Unable to connect to the database. Check your login details!")
             print(e)
-
-    def run_sql(self):
-        cur = self.conn.cursor()
-        cur.execute("""SELECT name FROM base_data WHERE name='Y-find'""")
-        text_content=list(cur)
-        return text_content
