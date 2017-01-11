@@ -33,4 +33,9 @@ class DbConnect():
         cursor = self.connection.cursor()
         cursor.execute(query_str)
         return cursor.fetchall()
+
+    @staticmethod
+    def open_table(file_name):
+        with open(file_name, "r") as f:
+             return f.read().replace("\n", "")
     
