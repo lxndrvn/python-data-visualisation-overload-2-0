@@ -1,13 +1,3 @@
-import psycopg2
-
-try:
-    conn = psycopg2.connect("dbname='szilniczky' user='szilniczky' host='localhost' password='Szeder93'")
-except:
-    print("I am unable to connect to the database")
-cur = conn.cursor()
-cur.execute("""SELECT name FROM base_data WHERE name='Y-find'""")
-text_content=cur.fetchall()[0]
-
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
