@@ -2,6 +2,9 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 
+
+dummy_data = [(12, 23432, "kutya"), (10, 22, "macska"), (34, 2343342, "nyúl"), (56, 4323, "béka"), (22, 2342, "teve")]
+
 img = Image.new("RGB", (512, 512), "red")
 draw = ImageDraw.Draw(img)
 # font = ImageFont.truetype(<font-file>, <font-size>)
