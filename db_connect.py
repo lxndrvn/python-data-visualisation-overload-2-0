@@ -46,6 +46,6 @@ class DbConnect:
         return cursor.fetchall()
 
     def client_importance(self):
-        sql = ("""SELECT count(id), company_name, count(main_color) FROM project GROUP BY company_name""")
+        sql = ("""SELECT count(id), main_color, company_name FROM project GROUP BY company_name""")
         cursor = self.run_sql_script(sql)
         return cursor.fetchall()

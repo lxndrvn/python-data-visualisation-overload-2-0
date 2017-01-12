@@ -9,3 +9,5 @@ connection.init_data()
 connection.get_all_projects()
 
 print(connection.client_importance())
+
+draw_image(connection.client_importance())
