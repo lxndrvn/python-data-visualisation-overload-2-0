@@ -7,37 +7,42 @@ class DbConnect:
         self.host_name = host_name
         self.password = password
         self.conn_str = "dbname='" + self.db_name + "' user='" + self.username + "' host='localhost' password='" + self.password + "'"
-        self.connection = None
+        self.database = None
 
+    # instantiate connection with login parameters
     @staticmethod
-    def get_db_connect(file_name):
+    def initialize(file_name):
             with open(file_name, "r") as f:
                 data_line = f.readlines()
                 db_name = data_line[0].replace("\n", "").split(":",1)[1]
                 username = data_line[1].replace("\n", "").split(":",1)[1]
                 host_name = data_line[2].replace("\n", "").split(":",1)[1]
                 password = data_line[3].replace("\n", "").split(":",1)[1]
-                db_connect = DbConnect(db_name, username, host_name, password)
-                return db_connect
+                create_connect = DbConnect(db_name, username, host_name, password)
+                return create_connect
 
-
-    def run_query_from_file(self, file_name):
-        with open(file_name, "r") as f:
-             query_str = f.read()
-        cursor = self.connection.cursor()
-        cursor.execute(query_str)
-
-
-    def connect_to_db(self):
+    # commits connection to database
+    def database_login(self):
         try:
-            self.connection = psycopg2.connect(self.conn_str)
-            self.connection.autocommit = True
+            self.database = psycopg2.connect(self.conn_str)
+            self.database.autocommit = True
             print("Connection successful!")
         except Exception as e:
             print("Something went wrong. Unable to connect to the database. Check your login details!")
             print(e)
 
-    def query(self, query_str):
-        cursor = self.connection.cursor()
+    def init_data(self):
+        sql_script = open("base_data.sql", "r").read()
+        cursor = self.run_sql_script(sql_script)
+
+    def run_sql_script(self, query_str):
+        cursor = self.database.cursor()
         cursor.execute(query_str)
+        return cursor
+
+    def get_all_projects(self):
+        sql = ("""SELECT company_name, count(id) from project GROUP BY company_name""")
+        cursor = self.run_sql_script(sql)
         return cursor.fetchall()
+
+    def 
