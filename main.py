@@ -6,4 +6,6 @@ connection.database_login()
 
 connection.init_data()
 
-print(connection.get_all_projects())
+connection.get_all_projects()
+
+print(connection.client_importance())
