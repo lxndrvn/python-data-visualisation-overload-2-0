@@ -20,10 +20,13 @@ class DbConnect:
                 db_connect = DbConnect(db_name, username, host_name, password)
                 return db_connect
 
-    @staticmethod
-    def open_data_table(file_name):
+
+    def run_query_from_file(self, file_name):
         with open(file_name, "r") as f:
-             return f.read().replace("\n", "")
+             query_str = f.read()
+        cursor = self.connection.cursor()
+        cursor.execute(query_str)
+
 
     def connect_to_db(self):
         try:
