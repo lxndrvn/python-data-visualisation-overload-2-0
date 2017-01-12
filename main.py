@@ -1,9 +1,9 @@
-from db_connection import DbConnect
+from db_connect import DbConnect
 
-connection = DbConnect.get_db_connect('connection.txt')
-connection.connect_to_db()
-connection.run_query_from_file("base_data.sql")
+connection = DbConnect.initialize('connection.txt')
 
-sql_query = ""
-answer = connection.query(sql_query)
-print(answer)
+connection.database_login()
+
+connection.init_data()
+
+print(connection.get_all_projects())
