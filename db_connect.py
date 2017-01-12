@@ -33,7 +33,7 @@ class DbConnect:
 
     def create_table(self):
         sql_script = open("base_data.sql", "r").read()
-        cursor = self.run_sql_script(sql_script)
+        self.run_sql_script(sql_script)
 
     def run_sql_script(self, query_str):
         cursor = self.database.cursor()
@@ -44,3 +44,18 @@ class DbConnect:
         query_str = """SELECT count(id)*2+10, array_agg(substring(main_color from 2 for 3)), company_name FROM project GROUP BY company_name"""
         cursor = self.run_sql_script(query_str)
         return cursor.fetchall()
+
+    def based_on_budget(self):
+        query_budget = """SELECT ROUND(budget_value), array_agg(main_color), company_name FROM project WHERE name LIKE '_%';""" 
+        cursor = self.run_sql_script(query_budget)
+        print(cursor.fetchall())
+        
+    def list_of_manager(self):
+        manager = """SELECT SELECT count(id)*2+10, array_agg(main_color), manager from project order by manager asc"""
+        cursor = self.run_sql_script(manager)
+        print(cursor.fetchall())
+
+    def project_status(self):
+        project_list = """SELECT company_name, array_agg(main_color), SUM(status) FROM project GROUP BY company_name"""
+        cursor = self.run_sql_script(project_list)
+        print(cursor.fetchall())

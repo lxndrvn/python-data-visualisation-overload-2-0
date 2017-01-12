@@ -9,9 +9,5 @@ connection.database_login()
 
 connection.create_table()
 
-print(connection.client_importance())
-
-#generator.draw_image(connection.client_importance())
-
-start = Menu.start_menu()
-print(start)
+start = Menu()
+start.start_menu(connection)
