@@ -41,8 +41,11 @@ class DbConnect:
         return cursor
 
     def get_all_projects(self):
-        sql = ("""SELECT company_name, count(id) from project GROUP BY company_name""")
+        sql = ("""SELECT company_name, count(id) FROM project GROUP BY company_name""")
         cursor = self.run_sql_script(sql)
         return cursor.fetchall()
 
-    def 
+    def client_importance(self):
+        sql = ("""SELECT count(id), company_name, count(main_color) FROM project GROUP BY company_name""")
+        cursor = self.run_sql_script(sql)
+        return cursor.fetchall()
