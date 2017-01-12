@@ -25,8 +25,8 @@ def draw_image(data):
         y = random.randint(10, 390)
         drawer = ImageDraw.Draw(img)
         size = drawer.textsize(string, font=font)
-        x = random.randint(0, (img.size[0] - text.size[0]))
-        y = random.randint(0, (img.size[1] - text.size[1]))
+        x = random.randint(0, (img.size[0] - size[0]))
+        y = random.randint(0, (img.size[1] - size[1]))
 
         draw.text((x, y), string, font= font, **text_options)
 
