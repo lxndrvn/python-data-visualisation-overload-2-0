@@ -41,6 +41,6 @@ class DbConnect:
         return cursor
 
     def client_importance(self):
-        query_str = """SELECT count(id), '#225', company_name FROM project GROUP BY company_name"""
+        query_str = """SELECT count(id)*2+10, array_agg(substring(main_color from 2 for 3)), company_name FROM project GROUP BY company_name"""
         cursor = self.run_sql_script(query_str)
         return cursor.fetchall()

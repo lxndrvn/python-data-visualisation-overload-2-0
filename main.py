@@ -9,4 +9,4 @@ connection.create_table()
 
 print(connection.client_importance())
 
-generator.draw_image(DbConnect.client_importance)
+generator.draw_image(connection.client_importance())
