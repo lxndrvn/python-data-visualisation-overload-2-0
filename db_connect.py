@@ -31,7 +31,7 @@ class DbConnect:
             print("Something went wrong. Unable to connect to the database. Check your login details!")
             print(e)
 
-    def init_data(self):
+    def create_table(self):
         sql_script = open("base_data.sql", "r").read()
         cursor = self.run_sql_script(sql_script)
 
@@ -40,12 +40,7 @@ class DbConnect:
         cursor.execute(query_str)
         return cursor
 
-    def get_all_projects(self):
-        sql = ("""SELECT company_name, count(id) FROM project GROUP BY company_name""")
-        cursor = self.run_sql_script(sql)
-        return cursor.fetchall()
-
     def client_importance(self):
-        sql = ("""SELECT count(id), main_color, company_name FROM project GROUP BY company_name""")
-        cursor = self.run_sql_script(sql)
+        query_str = """SELECT count(id), '#225', company_name FROM project GROUP BY company_name"""
+        cursor = self.run_sql_script(query_str)
         return cursor.fetchall()

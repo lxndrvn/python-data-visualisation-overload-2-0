@@ -1,13 +1,12 @@
 from db_connect import DbConnect
+import generator
 
 connection = DbConnect.initialize('connection.txt')
 
 connection.database_login()
 
-connection.init_data()
-
-connection.get_all_projects()
+connection.create_table()
 
 print(connection.client_importance())
 
-draw_image(connection.client_importance())
+generator.draw_image(DbConnect.client_importance)
